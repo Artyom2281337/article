@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
+          integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+</head>
+<body>
+    <header th:insert="blocks/header :: header"></header>
+    <main role="main">
+
+        <section class="jumbotron text-left">
+            <div class>
+                <form action="" method="post">
+                    <label>Project name</label>
+                    <input name="project_name" placeholder=" project name">
+                    <button type="submit">Add Project</button>
+                </form>
+            </div>
+        </section>
+
+        <div>
+            <table class="table table-bordered">
+                <thead class="thead-dark">
+                <tr>
+                    <th class="text-center">Project name</th>
+                    <th class="text-left">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="el : ${projects}" th:if="${el.getParent_id() == null}">
+                    <td class="text-center">
+                        <a th:href="'/project/' + ${el.id}" type="button" class="btn btn-warning">
+                            <i style="" class="fas fa-folder">
+                                <div th:text="${el.project_name}"></div>
+                            </i>
+                        </a>
+                    </td>
+                    <td class="text-center">
+                        <div style="float: left">
+                            <button type="button" class="btn btn-primary">
+                                <i class="fas fa-edit" style="vertical-align:top">
+                                    Edit
+                                </i>
+                            </button>
+                        </div>
+                        <div style="float: left">
+                            <form th:action="'/remove' + ${el.id}" method="post">
+                                <button type="submit" class="btn btn-danger">
+                                    <i class="fas fa-trash-alt" style="vertical-align:top">
+                                        Delete
+                                    </i>
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+    </main>
+    <div th:insert="blocks/footer :: footer"></div>
+</body>
+</html>
