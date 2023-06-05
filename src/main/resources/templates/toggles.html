@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
+          integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+</head>
+<body>
+<header th:insert="blocks/header :: header"></header>
+<main role="main">
+
+    <div>
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+            <tr>
+
+                <th class="text-center" th:text="${oneProject}"></th>
+                <th class="text-left">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+                <div>
+                    <tr th:each="el : ${toggleList}">
+                        <td>
+                            <div>
+                                <i class="far fa-toggle-on">
+                                    <div th:text="${el.name} + '    link:' + ${el.link != null ? el.link : ''}"></div>
+                                </i>
+                            </div>
+                        </td>
+                    </tr>
+                </div>
+            </tbody>
+        </table>
+    </div>
+
+</main>
+<div th:insert="blocks/footer :: footer"></div>
+</body>
+</html>

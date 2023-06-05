@@ -83,6 +83,18 @@
                                 </i>
                             </div>
                         </td>
+                        <td class="text-center">
+                            <div class="text-left">
+                                <i>
+                                    <a th:href="${el.link}" target=»_blank» th:text="${el.link}"></a>
+                                </i>
+                            </div>
+                            <form th:action="@{'/toggle/' + ${oneProject.id} + '/' + ${el.id} + '/edit'}" method="post">
+                                <label>link</label>
+                                <input name="link" placeholder=" link">
+                                <button type="submit">Add Group</button>
+                            </form>
+                        </td>
                     </tr>
                 </div>
             </tbody>

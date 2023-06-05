@@ -12,7 +12,7 @@ import ru.parshin.springtest.spring1.repositories.ToggleRepository;
 import java.util.List;
 
 @Controller
-@RequestMapping("/toggle/{group_id}")
+@RequestMapping("/toggle")
 public class ToggleController {
 
     @Autowired
@@ -21,7 +21,7 @@ public class ToggleController {
     @Autowired
     private ProjectRepository projectRepository;
 
-    @GetMapping("/{id}")
+    @GetMapping("/{group_id}/{id}")
     public String toggleView(@PathVariable(value = "group_id") Long groupId,
                              @PathVariable(value = "id") long id, Model model) {
         List<Toggle> toggles = toggleRepository.findAll();
@@ -29,7 +29,7 @@ public class ToggleController {
         return "group";
     }
 
-    @PostMapping("/add")
+    @PostMapping("/{group_id}/add")
     public String addToggle(@PathVariable(value = "group_id") String id,
                            Project project,
                            @RequestParam String toggle_name,
@@ -38,6 +38,28 @@ public class ToggleController {
         Toggle toggle = new Toggle(toggle_name);
         project.addToggle(toggle);
         projectRepository.save(project);
+        return "redirect:/project/{group_id}";
+    }
+
+    @GetMapping("/search")
+    public String findToggles(@RequestParam("name") String name, Model model) {
+        List<Toggle> toggles = toggleRepository.findByNameContaining(name);
+        model.addAttribute("toggleList", toggles);
+
+        return "toggles";
+    }
+
+    @PostMapping("/{group_id}/{toggle_id}/edit")
+    public String editToggle(@PathVariable(value = "toggle_id") Long toggleId,
+                             @PathVariable(value = "group_id") Long groupId,
+                             @RequestParam("link") String link) {
+
+        toggleRepository.findById(toggleId)
+                .ifPresent(toggle -> {
+                    toggle.setLink(link);
+                    toggleRepository.save(toggle);
+                });
+
         return "redirect:/project/{group_id}";
     }
 }

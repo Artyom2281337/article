@@ -11,9 +11,9 @@ public class Toggle {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String toggle_name;
+    private String name;
 
-    private String toggle_type;
+    private String link;
 
     private boolean active = false;
 
@@ -24,7 +24,7 @@ public class Toggle {
     }
 
     public Toggle(String toggle_name) {
-        this.toggle_name = toggle_name;
+        this.name = toggle_name;
     }
 
     public Long getId() {
@@ -35,20 +35,20 @@ public class Toggle {
         this.id = id;
     }
 
-    public String getToggle_name() {
-        return toggle_name;
+    public String getName() {
+        return name;
     }
 
-    public void setToggle_name(String toggle_name) {
-        this.toggle_name = toggle_name;
+    public void setName(String toggle_name) {
+        this.name = toggle_name;
     }
 
-    public String getToggle_type() {
-        return toggle_type;
+    public String getLink() {
+        return link;
     }
 
-    public void setToggle_type(String toggle_type) {
-        this.toggle_type = toggle_type;
+    public void setLink(String toggle_type) {
+        this.link = toggle_type;
     }
 
     public boolean isActive() {
@@ -61,6 +61,6 @@ public class Toggle {
 
     @Override
     public String toString() {
-        return toggle_name;
+        return name;
     }
 }
